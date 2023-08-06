@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useAuthStore } from '../../app/store';
 import { Form, Formik } from 'formik';
@@ -15,6 +15,10 @@ const SignUp = () => {
   const isAuth = useAuthStore((state) => state.isAuth);
   const register = useAuthStore((state) => state.register);
   const error = useAuthStore((state) => state.error);
+
+  useEffect(() => {
+    document.title = 'Societas | Sign up';
+  }, []);
 
   const handleSubmit = (values) => {
     handleRegister(

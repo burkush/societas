@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const NotFound = () => {
+  useEffect(() => {
+    document.title = 'Societas | Page not found';
+  }, []);
+
   return (
     <main className="text-center">
       <h1 className="text-4xl font-bold mb-4">404</h1>

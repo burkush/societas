@@ -22,7 +22,8 @@ export const useAuthStore = create()(
       } catch (error) {
         set({
           error:
-            error.response.data.message || 'Unhandled error occured. Try again'
+            error.response?.data?.message ||
+            'Unhandled error occured. Try again'
         });
         return false;
       } finally {
@@ -40,7 +41,8 @@ export const useAuthStore = create()(
       } catch (error) {
         set({
           error:
-            error.response.data.message || 'Unhandled error occured. Try again'
+            error.response?.data?.message ||
+            'Unhandled error occured. Try again'
         });
         return false;
       } finally {
@@ -64,7 +66,8 @@ export const useAuthStore = create()(
       } catch (error) {
         set({
           error:
-            error.response.data.message || 'Unhandled error occured. Try again'
+            error.response?.data?.message ||
+            'Unhandled error occured. Try again'
         });
         return false;
       } finally {
@@ -83,7 +86,8 @@ export const useAuthStore = create()(
       } catch (error) {
         set({
           error:
-            error.response.data.message || 'Unhandled error occured. Try again'
+            error.response?.data?.message ||
+            'Unhandled error occured. Try again'
         });
       } finally {
         set({ isLoading: false });
@@ -107,7 +111,8 @@ export const useUserStore = create()(
       } catch (error) {
         set({
           error:
-            error.response.data.message || 'Unhandled error occured. Try again'
+            error.response?.data?.message ||
+            'Unhandled error occured. Try again'
         });
       } finally {
         set({ isLoading: false });

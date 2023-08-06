@@ -8,6 +8,8 @@ const Profile = () => {
   const getUserInfo = useUserStore((state) => state.getUserInfo);
 
   useEffect(() => {
+    document.title = 'Societas | Dashboard';
+
     getUserInfo(id);
   }, []);
 

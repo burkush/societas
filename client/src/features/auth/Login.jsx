@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useAuthStore } from '../../app/store';
 import { useFormik } from 'formik';
@@ -10,6 +10,10 @@ const Login = () => {
   const isAuth = useAuthStore((state) => state.isAuth);
   const login = useAuthStore((state) => state.login);
   const error = useAuthStore((state) => state.error);
+
+  useEffect(() => {
+    document.title = 'Societas | Login';
+  }, []);
 
   const formik = useFormik({
     initialValues: {
