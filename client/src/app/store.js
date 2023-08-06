@@ -10,30 +10,46 @@ export const useAuthStore = create()(
     user: {},
     isAuth: false,
     isLoading: false,
+    error: null,
 
     login: async (email, password) => {
+      set({ isLoading: true });
       try {
         const response = await AuthService.login(email, password);
-        console.log(response);
         localStorage.setItem('token', response.data.accessToken);
-        set({ user: response.data.user, isAuth: true });
+        set({ user: response.data.user, isAuth: true, error: null });
+        return true;
       } catch (error) {
-        console.error(error.response?.data);
+        set({
+          error:
+            error.response.data.message || 'Unhandled error occured. Try again'
+        });
+        return false;
+      } finally {
+        set({ isLoading: false });
       }
     },
 
     logout: async () => {
+      set({ isLoading: true });
       try {
-        const response = await AuthService.logout();
-        console.log(response);
+        await AuthService.logout();
         localStorage.removeItem('token');
-        set({ user: {}, isAuth: false });
+        set({ user: {}, isAuth: false, error: null });
+        return true;
       } catch (error) {
-        console.error(error.response?.data);
+        set({
+          error:
+            error.response.data.message || 'Unhandled error occured. Try again'
+        });
+        return false;
+      } finally {
+        set({ isLoading: false });
       }
     },
 
     register: async (email, password, firstName, lastName, birthDate) => {
+      set({ isLoading: true });
       try {
         const response = await AuthService.register(
           email,
@@ -42,11 +58,17 @@ export const useAuthStore = create()(
           lastName,
           birthDate
         );
-        console.log(response);
         localStorage.setItem('token', response.data.accessToken);
-        set({ user: response.data.user, isAuth: true });
+        set({ user: response.data.user, isAuth: true, error: null });
+        return true;
       } catch (error) {
-        console.error(error.response?.data);
+        set({
+          error:
+            error.response.data.message || 'Unhandled error occured. Try again'
+        });
+        return false;
+      } finally {
+        set({ isLoading: false });
       }
     },
 
@@ -56,11 +78,13 @@ export const useAuthStore = create()(
         const response = await axios.get(`${API_URL}/auth/refresh`, {
           withCredentials: true
         });
-        console.log(response);
         localStorage.setItem('token', response.data.accessToken);
-        set({ user: response.data.user, isAuth: true });
+        set({ user: response.data.user, isAuth: true, error: null });
       } catch (error) {
-        console.error(error.response?.data);
+        set({
+          error:
+            error.response.data.message || 'Unhandled error occured. Try again'
+        });
       } finally {
         set({ isLoading: false });
       }
@@ -72,15 +96,19 @@ export const useUserStore = create()(
   devtools((set) => ({
     user: {},
     isLoading: false,
+    error: null,
 
     getUserInfo: async (userId) => {
       set({ isLoading: true });
       try {
         const response = await UserService.getUserInfo(userId);
-        console.log(response);
-        set({ user: response.data });
+        console.log(response.data);
+        set({ user: response.data, error: null });
       } catch (error) {
-        console.error(error.response?.data);
+        set({
+          error:
+            error.response.data.message || 'Unhandled error occured. Try again'
+        });
       } finally {
         set({ isLoading: false });
       }

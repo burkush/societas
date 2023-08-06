@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAuthStore } from './app/store';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './layouts/Layout';
@@ -12,19 +12,15 @@ import NotFound from './pages/NotFound';
 
 const App = () => {
   const checkAuth = useAuthStore((state) => state.checkAuth);
-  const [isAuthCheckCompleted, setAuthCheckCompleted] = useState(false);
+  const isLoading = useAuthStore((state) => state.isLoading);
 
   useEffect(() => {
-    async function auth() {
-      if (localStorage.getItem('token')) {
-        await checkAuth();
-      }
-      setAuthCheckCompleted(true);
+    if (localStorage.getItem('token')) {
+      checkAuth();
     }
-    auth();
   }, []);
 
-  if (!isAuthCheckCompleted) {
+  if (isLoading) {
     return <Loading />;
   }
 

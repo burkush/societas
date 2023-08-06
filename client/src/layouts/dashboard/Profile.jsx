@@ -8,11 +8,7 @@ const Profile = () => {
   const getUserInfo = useUserStore((state) => state.getUserInfo);
 
   useEffect(() => {
-    async function getInfo(userId) {
-      await getUserInfo(userId);
-    }
-
-    getInfo(id);
+    getUserInfo(id);
   }, []);
 
   return (

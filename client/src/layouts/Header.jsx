@@ -16,7 +16,7 @@ const Header = () => {
   }
 
   return (
-    <header className="mb-7 p-2 bg-slate-900">
+    <header className="p-2 bg-slate-900">
       <div className="flex items-center justify-between max-w-5xl mx-auto">
         <Link to="/">
           <img
